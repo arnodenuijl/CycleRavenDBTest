@@ -1,10 +1,10 @@
 {
-  "name": "nogeentest",
+  "name": "Cycle_double_http_request",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js  -w --inline --content-base src/"
   },
   "author": "",
   "license": "ISC",
