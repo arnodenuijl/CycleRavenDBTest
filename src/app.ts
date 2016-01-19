@@ -19,10 +19,10 @@ function createUserInput(DOM) {
     }
 }
 
-function model(userIntent, httpResponses$) {
+function model(userInput, httpInput$) {
     // construct the model from the firstname and lastname field
-    let firstName$ = userIntent.firstNameField$.startWith("");
-    let lastName$ = userIntent.lastNameField$.startWith("");
+    let firstName$ = userInput.firstNameField$.startWith("");
+    let lastName$ = userInput.lastNameField$.startWith("");
 
     let model$ = Observable
         .combineLatest(
@@ -32,7 +32,7 @@ function model(userIntent, httpResponses$) {
                                         
     // if we get a response from the HTTP server we clear the model and show the return code
     // let emptyModel$ = Observable.never();
-    let emptyModel$ = httpResponses$.map(resp => ({ firstName: "", lastName: "", response: resp.statusCode }));
+    let emptyModel$ = httpInput$.map(resp => ({ firstName: "", lastName: "", response: resp.statusCode }));
 
     let state$ = model$.merge(emptyModel$);
     return state$;
@@ -64,7 +64,6 @@ function main(drivers) {
     // create state from user and http input
     let state$ = model(userInput, httpInput$);
     let vtree$ = view(state$);
-
 
     // create the HTTP request from the last state sampled by the button click
     let createUserRequest$ =
