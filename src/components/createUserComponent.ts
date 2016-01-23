@@ -1,5 +1,5 @@
-import {input, div, p, label, button, } from '@cycle/dom';
-import {Observable} from 'rx';
+import {input, div, p, label, button, } from "@cycle/dom";
+import {Observable} from "rx";
 
 function processHttpResponse(HTTP){
     let response$ = HTTP.mergeAll().tap(x=> {
@@ -11,9 +11,9 @@ function processHttpResponse(HTTP){
 function createUserInput(DOM) {
     // user input
     return {
-        firstNameField$: DOM.select('#firstName').events('input').map(ev => ev.target.value),
-        lastNameField$: DOM.select('#lastName').events('input').map(ev => ev.target.value),
-        saveClick$: DOM.select('.saveButton').events('click'),
+        firstNameField$: DOM.select("#firstName").events("input").map(ev => ev.target.value),
+        lastNameField$: DOM.select("#lastName").events("input").map(ev => ev.target.value),
+        saveClick$: DOM.select(".saveButton").events("click"),
     }
 }
 
@@ -26,7 +26,7 @@ function model(userInput, httpResponse$) {
         .combineLatest(
         firstName$,
         lastName$,
-        (firstName, lastName) => ({ firstName, lastName, response: '' }));
+        (firstName, lastName) => ({ firstName, lastName, response: "" }));
 
     // if we get a response from the HTTP server we clear the model and show the return code
     // let emptyModel$ = Observable.never();
@@ -40,12 +40,12 @@ function view(state$) {
     let vtree$ = state$
         .map(state =>
             div([
-                label('', 'First name:'),
-                input('#firstName', { type: 'text', value: state.firstName }),
-                label('', 'Last name:'),
-                input('#lastName', { type: 'text', value: state.lastName }),
-                p('', state.response),
-                button('.saveButton', 'Opslaan'),
+                label("", "First name:"),
+                input("#firstName", { type: "text", value: state.firstName }),
+                label("", "Last name:"),
+                input("#lastName", { type: "text", value: state.lastName }),
+                p("", state.response),
+                button(".saveButton", "Opslaan"),
             ]));
     return vtree$;
 }
@@ -70,10 +70,10 @@ function main(drivers) {
         state$
             .sample(userInput.saveClick$)
             .tap(x=> {
-                console.log("sample from model: " + x.firstName + ' ' + x.lastName);
+                console.log("sample from model: " + x.firstName + " " + x.lastName);
             })
             .map(x => ({
-                url: 'index.html',
+                url: "index.html",
             }))
             .tap(x=> {
                 console.log("Request: " + x.url);
