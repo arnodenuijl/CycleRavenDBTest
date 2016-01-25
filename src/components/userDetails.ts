@@ -2,15 +2,15 @@ import {input, div, p, label, button, } from "@cycle/dom";
 import {Observable} from "rx";
 
 
-interface UserDetailComponentSources {
+interface UserDetailSources {
     user$: Observable<User>;
 }
 
-interface UserDetailComponentSinks {
+interface UserDetailSinks {
     DOM: Observable<any>;
 }
 
-function UserDetailComponent(sources: UserDetailComponentSources): UserDetailComponentSinks {
+function UserDetailComponent(sources: UserDetailSources): UserDetailSinks {
     let vtree$ = sources.user$.map(user =>
         div([
             div([
